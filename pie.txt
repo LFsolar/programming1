@@ -1,0 +1,11 @@
+7 flour 2 cups
+11 sugar 5.3 tablespoons
+4 salt 2.5 teaspoons
+9 butter 1.2 cups
+2 pumpkin 4 cups
+6 nutmeg 0.8 teaspoons
+1 allspice 1 tablespoon
+10 vanilla 0.75 tablespoons
+3 heavy_cream 2 cups
+8 whipped_cream 6 cups
+

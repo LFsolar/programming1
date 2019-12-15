@@ -1,0 +1,429 @@
+Script started on 2019-11-25 13:09:02-0600
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ cat buddyHolly.cpp
+/*
+	Lisa Sun
+	Programming I
+	Program: Buddy Holly Songs
+	This program sorts songs and albums alphabetically.
+	Due: December 2, 2019
+*/
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <fstream>
+#include "sortSongs.cpp"
+#include "sortAlbumsA2Z.cpp"
+#define NUMALBUMS 5
+using namespace std;
+
+Album buddyAlbums[NUMALBUMS];
+
+int main() {
+	int albumNo = 0;
+	int songNo = 0;
+	string line;
+	
+	ifstream ifile("SongsBuddyHolly.txt");
+	
+	getline(ifile, buddyAlbums[albumNo].title);
+	getline(ifile, buddyAlbums[albumNo].date);		
+	while(getline(ifile, line)) {
+		if(line[0] == '=') {
+			// Go to next album and fill in name and date
+			albumNo++;
+			getline(ifile, buddyAlbums[albumNo].title);
+			getline(ifile, buddyAlbums[albumNo].date);
+			songNo = 0;		
+			// Fill songs
+		} else {
+			// Separate the track number from the song name
+			buddyAlbums[albumNo].songs[songNo][0] = line.substr(0, 3);
+				
+			buddyAlbums[albumNo].songs[songNo][1] = line.substr(5);
+			buddyAlbums[albumNo].count++;
+			songNo++;
+		}
+	}
+	ifile.close();
+	
+	// Sort songs alphabetically
+	cout << endl << "Songs sorted alphabetically:" << endl << endl;
+	for (int i = 0; i <= albumNo; i++) {
+		cout << buddyAlbums[i].title << endl
+			 << buddyAlbums[i].date << endl;
+		sortSongs(buddyAlbums[i].songs, buddyAlbums[i].count);
+			 for (int j = 0; j < buddyAlbums[i].count; j++) {
+				cout << buddyAlbums[i].songs[j][0] << "  "
+					 << buddyAlbums[i].songs[j][1] << endl;
+			 }
+		cout << "========================" << endl;
+	}	
+	
+	// Sort albums alphabetically, use + 1 to get quantity, not index
+	sortAlbumsA2Z(buddyAlbums, albumNo + 1);
+	
+	cout << endl << "Albums sorted alphabetically:" << endl << endl;
+	for (int i = 0; i <= albumNo; i++) {
+		cout << buddyAlbums[i].title << endl
+			 << buddyAlbums[i].date << endl;
+			 for (int j = 0; j < buddyAlbums[i].count; j++) {
+				cout << buddyAlbums[i].songs[j][0] << "  "
+					 << buddyAlbums[i].songs[j][1] << endl;
+			 }
+		cout << "========================" << endl;
+	}	
+}]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ c++ buddyHolly.cpp
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ a.out
+
+Songs sorted alphabetically:
+
+That'll Be the Day 
+1958 
+ 2.  Blue Days, Black Nights
+10.  Don't Come Back Knockin'
+ 6.  Girl On My Mind
+ 9.  I'm Changing All Those Changes
+ 8.  Love Me
+11.  Midnight Shift
+ 3.  Modern Don Juan
+ 4.  Rock Around With Ollie Vee
+ 7.  That'll Be the Day
+ 5.  Ting A Ling
+ 1.  You Are My One Desire
+========================
+Buddy Holly 
+1958
+10.  Baby I Don't Care
+ 7.  Everyday
+ 1.  I'm Gonna Love You Too
+ 4.  Listen to Me
+12.  Little Baby
+ 3.  Look at Me
+ 8.  Mailman, Bring Me No More Blues
+ 2.  Peggy Sue
+11.  Rave On!
+ 6.  Ready Teddy 
+ 5.  Valley of Tears
+ 9.  Words of Love
+========================
+The Buddy Holly Story
+1959 
+ 2.  Early in the Morning
+ 5.  Everyday
+ 8.  Heartbeat
+12.  It Doesn't Matter Anymore
+11.  It's So Easy!
+ 4.  Maybe Baby
+10.  Oh, Boy!
+ 3.  Peggy Sue
+ 1.  Raining In My Heart
+ 6.  Rave On!
+ 7.  That'll Be the Day
+ 9.  Think It Over
+========================
+The Buddy Holly Story, Vol. 2 
+1960
+ 7.  Crying, Waiting, Hoping
+ 9.  Learning the Game
+10.  Little Baby
+11.  Moondreams
+ 5.  Now We're One
+ 1.  Peggy Sue Got Married
+ 6.  Take Your Time
+ 4.  That Makes It Tough
+12.  That's What They Say
+ 8.  True Love Ways
+ 2.  Well, All Right
+ 3.  What to Do
+========================
+Reminiscing
+1963
+ 5.  Baby, Won't You Come Out Tonight
+ 7.  Because I Love You
+ 3.  Bo Diddley
+ 6.  Brown Eyed Handsome Man
+10.  Changing All Those Changes
+ 9.  I'm Gonna Set My Foot Down
+ 8.  It's Not My Fault
+ 1.  Reminiscing
+11.  Rock-A-Bye Rock
+ 2.  Slippin' and Slidin'
+ 4.  Wait 'Till the Sun Shines, Nellie
+========================
+
+Albums sorted alphabetically:
+
+Buddy Holly 
+1958
+10.  Baby I Don't Care
+ 7.  Everyday
+ 1.  I'm Gonna Love You Too
+ 4.  Listen to Me
+12.  Little Baby
+ 3.  Look at Me
+ 8.  Mailman, Bring Me No More Blues
+ 2.  Peggy Sue
+11.  Rave On!
+ 6.  Ready Teddy 
+ 5.  Valley of Tears
+ 9.  Words of Love
+========================
+Reminiscing
+1963
+ 5.  Baby, Won't You Come Out Tonight
+ 7.  Because I Love You
+ 3.  Bo Diddley
+ 6.  Brown Eyed Handsome Man
+10.  Changing All Those Changes
+ 9.  I'm Gonna Set My Foot Down
+ 8.  It's Not My Fault
+ 1.  Reminiscing
+11.  Rock-A-Bye Rock
+ 2.  Slippin' and Slidin'
+ 4.  Wait 'Till the Sun Shines, Nellie
+========================
+That'll Be the Day 
+1958 
+ 2.  Blue Days, Black Nights
+10.  Don't Come Back Knockin'
+ 6.  Girl On My Mind
+ 9.  I'm Changing All Those Changes
+ 8.  Love Me
+11.  Midnight Shift
+ 3.  Modern Don Juan
+ 4.  Rock Around With Ollie Vee
+ 7.  That'll Be the Day
+ 5.  Ting A Ling
+ 1.  You Are My One Desire
+========================
+The Buddy Holly Story
+1959 
+ 2.  Early in the Morning
+ 5.  Everyday
+ 8.  Heartbeat
+12.  It Doesn't Matter Anymore
+11.  It's So Easy!
+ 4.  Maybe Baby
+10.  Oh, Boy!
+ 3.  Peggy Sue
+ 1.  Raining In My Heart
+ 6.  Rave On!
+ 7.  That'll Be the Day
+ 9.  Think It Over
+========================
+The Buddy Holly Story, Vol. 2 
+1960
+ 7.  Crying, Waiting, Hoping
+ 9.  Learning the Game
+10.  Little Baby
+11.  Moondreams
+ 5.  Now We're One
+ 1.  Peggy Sue Got Married
+ 6.  Take Your Time
+ 4.  That Makes It Tough
+12.  That's What They Say
+ 8.  True Love Ways
+ 2.  Well, All Right
+ 3.  What to Do
+========================
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ cat sortAlbumsA2Z.cpp 
+/*
+	Lisa Sun
+	Programming I
+	Program: Buddy Holly Songs
+	This program sorts Albums alphabetically.
+	Supports the buddyHolly.cpp program.
+	Due: December 2, 2019
+*/
+#include <iostream>
+#define MAXSONGS 12
+#define NUMTRACKINFO 2
+using namespace std;
+
+struct Album {
+	string title;
+	string date;
+	string songs[MAXSONGS][NUMTRACKINFO]; // 12 songs, with trackNo & name
+	int count = 0; // number of songs
+};
+
+void sortAlbumsA2Z(Album anthology[], int size) {
+	for (int i = 0; i < size; i++) {
+		for (int j = 0; j < size; j++) {
+			if (anthology[i].title < anthology[j].title) 
+				swap(anthology[i], anthology[j]);
+		}
+	}
+}
+
+// Test
+#if __INCLUDE_LEVEL__ < 1
+int main() {
+	// Make array of Albums
+	Album album1;
+	album1.title = "zabd";
+	album1.date = "1832";
+	
+	Album album2;
+	album2.title = "eabd";
+	album2.date = "1862";
+	
+	Album list[] = {album1, album2};
+	
+	// Display unsorted
+	for (int i = 0; i < 2; i++) {
+	cout << list[i].title << list[i].date << endl;
+	}
+	
+	sortAlbumsA2Z(list, 2);
+	
+	// Display sorted
+	for (int i = 0; i < 2; i++) {
+		cout << list[i].title << list[i].date << endl;
+	}
+}
+#endif
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ c++ sortAlbumsA2Z.cpp 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ a.out
+zabd1832
+eabd1862
+eabd1862
+zabd1832
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ cat sortSongs.cpp 
+/*
+	Lisa Sun
+	Programming I
+	Program: Buddy Holly Songs
+	This program sorts songs alphabetically.
+	Supports the buddyHolly.cpp program.
+	Due: December 2, 2019
+	
+*/
+#include <iostream>
+#define SIZE2D 2
+using namespace std;
+
+void sortSongs(string songs[][SIZE2D], int size) {
+	// Compare 1 song name to another song name
+	for (int i = 0; i < size; i++) {
+		for (int j = 0; j < size; j++) {
+			// song[][0] = track no.
+			// song[][1] = name
+			if (songs[i][1] < songs[j][1]) swap(songs[i], songs[j]);
+		}
+	}
+}
+
+// Test
+#if __INCLUDE_LEVEL__ < 1
+int main() {
+	string song1[2];	
+	song1[0] = " 1.";
+	song1[1] = "example";
+	
+	string song2[2];	
+	song2[0] = " 2.";
+	song2[1] = "axample";
+	
+	string list[][2] = {song1, song2};
+	
+	// Display original
+	for (int i = 0; i < 2; i++) { // access all individual songs
+		for (int j = 0; j < 2; j++) { // access either trackNo [0] or name [1]
+			cout << list[i][j] << ' ';
+		}
+		cout << endl;
+	}
+	
+	sortSongs(list, 2);
+	
+	// Display sorted
+	for (int i = 0; i < 2; i++) { // access all individual songs
+		for (int j = 0; j < 2; j++) { // access either trackNo [0] or name [1]
+			cout << list[i][j] << ' ';
+		}
+		cout << endl;
+	}
+}
+#endif]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ c++ sortSongs.cpp 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ a.out
+ 1. example 
+ 2. axample 
+ 2. axample 
+ 1. example 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ 
+]0;wm083@CS: ~wm083@CS:~$ exit
+exit
+
+Script done on 2019-11-25 13:09:57-0600

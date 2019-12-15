@@ -1,0 +1,66 @@
+Script started on 2019-09-24 13:12:28-0500
+]0;wm083@CS: ~/forFunwm083@CS:~/forFun$ cat linkedListLisa.cpp 
+ /*
+  Make a linked list.
+*/
+
+#include <iostream>
+#include <ctime>
+
+using namespace std;
+
+struct Node {
+  int info;
+  Node * next;
+};
+
+int main() {
+  // Create the linked list
+  Node * p;
+  Node * head = NULL; // leaves last node's head as NULL
+  
+  // Make 4 node objects
+  for (int i = 0; i < 4; i++) {
+    p = new Node;
+    cout << "p = " << p << '\n';
+  
+    // Put random value in each node's info.
+    srand(time(NULL));
+    p -> info = rand() % 100;
+
+    // The last memory location of the node is the pointer
+    // for the 1st memory location of the next pointer.
+    p -> next = head;
+    head = p;
+    cout << "head = " << head << '\n';
+  }
+
+  // Transverse the linked list.
+  p = head;
+  while (p) {
+    cout << p -> info << '\n';
+    p = p -> next; // jump from 1st memory location to linked memory location
+  }
+
+  cout << "(*p).info = " << (*p).info << '\n';
+
+  return 0;
+}
+]0;wm083@CS: ~/forFunwm083@CS:~/forFun$ a.out
+p = 0x55601710ee70
+head = 0x55601710ee70
+p = 0x55601710f2a0
+head = 0x55601710f2a0
+p = 0x55601710f2c0
+head = 0x55601710f2c0
+p = 0x55601710f2e0
+head = 0x55601710f2e0
+77
+77
+77
+77
+Segmentation fault (core dumped)
+]0;wm083@CS: ~/forFunwm083@CS:~/forFun$ exit
+exit
+
+Script done on 2019-09-24 13:12:42-0500
